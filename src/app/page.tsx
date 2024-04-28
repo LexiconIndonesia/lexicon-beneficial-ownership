@@ -6,7 +6,7 @@ import SearchBar from "@/components/search-bar";
 import { getCases } from "@/data/get-cases";
 import { GetCasesParams, GetCasesResponse } from "@/data/response";
 import { useParams, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const params = useSearchParams();

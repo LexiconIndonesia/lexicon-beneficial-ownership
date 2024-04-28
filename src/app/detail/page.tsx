@@ -5,7 +5,7 @@ import { GetCasesParams, GetCasesResponse } from "@/data/response";
 import StringUtils from "@/utils/strings";
 import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export default function DetailPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function DetailPage() {
   }
 
   useEffect(() => {
-    getCasesFirebase()
+    getCasesFirebase();
   }, []);
 
   return (

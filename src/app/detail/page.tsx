@@ -139,7 +139,7 @@ export default function DetailPage() {
             color="primary" 
             className="px-28 font-semibold" 
             radius="sm"
-            onClick={() => router.push(data?.link ?? '')}
+            onClick={() => window.open(data?.link ?? '', '_blank', 'rel=noopener noreferrer')}
           >Source</Button>
         </div>
       </section>

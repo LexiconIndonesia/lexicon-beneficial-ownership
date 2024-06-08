@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function SearchBar (): React.ReactElement {
   const [query, setQuery] = useState('')
@@ -10,6 +10,10 @@ export default function SearchBar (): React.ReactElement {
   const params = useSearchParams()
   const path = usePathname()
   const router = useRouter()
+
+  useEffect(() => {
+    setQuery(params.get('query') ?? '')
+  }, [])
 
   const handleSubmitClicked = (): void => {
     const newParams = new URLSearchParams(params)

@@ -2,7 +2,7 @@
 
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import React, { createRef, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 
 enum CurrentForm {
   FROM, TO, BUTTON
@@ -20,6 +20,12 @@ export default function FilterYear (): React.ReactElement {
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [currentForm, setCurrentForm] = useState(CurrentForm.FROM)
+
+  useEffect(() => {
+    // TODO: Add validation for params
+    setFrom(params.get('from') ?? '')
+    setTo(params.get('to') ?? '')
+  }, [])
 
   const handleSubmitClicked = (): void => {
     const newParams = new URLSearchParams(params)

@@ -30,7 +30,8 @@ export default function PersonList ({
     fetcher,
     {
       revalidateOnFocus: false,
-      revalidateOnMount: false
+      revalidateOnMount: false,
+      revalidateIfStale: false
     }
   )
 

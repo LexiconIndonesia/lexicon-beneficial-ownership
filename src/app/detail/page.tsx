@@ -1,7 +1,7 @@
 'use server'
 
 import React from 'react'
-import { getCase } from '@/services/getCases'
+import { getCase } from '@/services/cases'
 import DetailPersonTable from '@/components/DetailPersonTable'
 import { DetailPersonButton } from '@/components/DetailPersonButton'
 

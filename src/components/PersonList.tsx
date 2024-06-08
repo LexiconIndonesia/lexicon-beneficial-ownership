@@ -1,6 +1,6 @@
 'use client'
 
-import { getCases } from '@/services/getCases'
+import { getCases } from '@/services/cases'
 import { type GetCasesParams, type GetCasesResponse } from '@/types/cases'
 import { type BaseResponse } from '@/types/responses'
 import { type Return } from '@/types/returns'

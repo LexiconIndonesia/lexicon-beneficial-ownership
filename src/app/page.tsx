@@ -1,41 +1,42 @@
-"use client";
+'use client'
 
-import Filter from "@/components/filter";
-import PersonList from "@/components/person-list";
-import SearchBar from "@/components/search-bar";
-import { getCases } from "@/data/get-cases";
-import { GetCasesParams, GetCasesResponse } from "@/data/response";
-import { useParams, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
+import PersonList from '@/components/PersonList'
+import FilterSubjectType from '@/components/FilterSubjectType'
+import FilterYear from '@/components/FilterYear'
+import FilterType from '@/components/FilterType'
+import FilterNation from '@/components/FilterNation'
+import SearchBar from '@/components/ui/SearchBar'
+import { useSearchParams } from 'next/navigation'
 
-export default function Home() {
-  const params = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<GetCasesResponse[]>([]);
-
-  async function getCasesFirebase(param: GetCasesParams) {
-    setIsLoading(true);
-    const response = await getCases(param);
-    setData(response);
-    setIsLoading(false);
-  }
+export default function Home (): React.ReactElement {
+  const params = useSearchParams()
+  const [query, setQuery] = useState('')
+  const [nations, setNations] = useState<string[]>([])
+  const [subjects, setSubjects] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [year, setYear] = useState<string>('')
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    getCasesFirebase({
-      keyword: params.get('query') ?? '',
-      filterSubjectType: params.getAll('subjects'),
-      filterNation: params.get('nations') ?? '',
-      filterFrom: params.get('from') ?? '',
-      filterTo: params.get('to') ?? '',
-      filterType: params.getAll('types')
-    })
-  }, [params]);
+    setQuery(params.get('query') ?? '')
+    setNations(params.getAll('nations') ?? [])
+    setSubjects(params.getAll('subjects') ?? [])
+    setTypes(params.getAll('types') ?? [])
+    setYear(`${params.get('from') ?? ''}-${params.get('to') ?? ''}`)
+    setPage(1)
+  }, [params])
 
   return (
     <main className="py-8 px-4 sm:px-12">
       <SearchBar />
-      <Filter />
-      <PersonList cases={data} isLoading={isLoading} />
+      <section className="mt-4 flex flex-row gap-2">
+        <FilterSubjectType />
+        <FilterYear />
+        <FilterType />
+        <FilterNation />
+      </section>
+      <PersonList query={query} nations={nations} subjects={subjects} types={types} year={year} page={page} setPage={setPage} />
     </main>
-  );
+  )
 }

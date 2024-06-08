@@ -1,8 +1,7 @@
-import Image from "next/image";
-import { ReactElement } from "react";
+import Image from 'next/image'
+import React from 'react'
 
-export default function Footer(): ReactElement {
-
+export default function Footer (): React.ReactElement {
   const sponsors = [
     {
       name: 'Accountability Lab',
@@ -12,14 +11,6 @@ export default function Footer(): ReactElement {
         height: 100
       }
     },
-    // {
-    //   name: 'ASET: Anticorruption Solution Through Emerging Technologies',
-    //   imageSrc: '/images/sponsors/ASET.png',
-    //   imageSize: {
-    //     width: 100,
-    //     height: 100
-    //   }
-    // },
     {
       name: 'CIPE',
       imageSrc: '/images/sponsors/CIPE.png',
@@ -35,31 +26,7 @@ export default function Footer(): ReactElement {
         width: 150,
         height: 100
       }
-    },
-    // {
-    //   name: 'INLE',
-    //   imageSrc: '/images/sponsors/INLE.png',
-    //   imageSize: {
-    //     width: 70,
-    //     height: 100
-    //   }
-    // },
-    // {
-    //   name: 'ODC',
-    //   imageSrc: '/images/sponsors/ODC.png',
-    //   imageSize: {
-    //     width: 150,
-    //     height: 100
-    //   }
-    // },
-    // {
-    //   name: 'USAID',
-    //   imageSrc: '/images/sponsors/USAID.png',
-    //   imageSize: {
-    //     width: 200,
-    //     height: 100
-    //   }
-    // }
+    }
   ]
 
   return (
@@ -68,11 +35,11 @@ export default function Footer(): ReactElement {
       <div className="flex flex-wrap gap-10 justify-center items-center mt-8">
         {sponsors.map((sponsor, index) => {
           return (
-            <Image 
-              key={index} 
-              width={sponsor.imageSize.width} 
-              height={sponsor.imageSize.height} 
-              src={sponsor.imageSrc} 
+            <Image
+              key={index}
+              width={sponsor.imageSize.width}
+              height={sponsor.imageSize.height}
+              src={sponsor.imageSrc}
               alt={sponsor.name}
             />
           )

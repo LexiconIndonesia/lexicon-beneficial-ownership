@@ -27,7 +27,11 @@ export default function PersonList ({
 
   const { data, isLoading } = useSWR<Return<BaseResponse<GetCasesResponse[]>>>(
     { page, query, nations, subjects, types, year },
-    fetcher
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: false
+    }
   )
 
   const pages = useMemo(() => {

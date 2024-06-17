@@ -11,8 +11,8 @@ Lexicon BO is a dedicated company to transparency and integrity in the corporate
 
 ## Tech Stack
 * NextJS
+    * App Router
 * Tailwind CSS
-* Next JS App Router
 
 ## Folder Structures
 For the routing folder, we put all of our pages in ```app``` folder with the file name based on [App Router Documentation](https://nextjs.org/docs/getting-started/project-structure#app-routing-conventions). For another purpose besides UI pages, we used the following structure:
@@ -20,7 +20,7 @@ For the routing folder, we put all of our pages in ```app``` folder with the fil
 * ```service```: Contains API configuration and API services, acted as a data layer that contains communication to the outside of the app
 * ```styles```: Contains global styles of CSS, also Tailwind declaration
 * ```types```: Contains data models that are used to map data obtained externally into the application
-* ```utils```: Contains utilities function such as helper, constants, and enumeration
+* ```utils```: Contains utility such as helper, constants, and enumeration
 
 ## Demonstration
 You can access the website directly at [this link](https://bo.lexicon.id/)
@@ -67,4 +67,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-shield]: https://img.shields.io/github/issues/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
 [issues-url]: https://github.com/LexiconIndonesia/lexicon-bo/issues
 [license-shield]: https://img.shields.io/github/license/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[license-url]: https://github.com/LexiconIndonesia/lexicon-bo/blob/master/LICENSE.txt
+[license-url]: https://github.com/LexiconIndonesia/lexicon-bo/blob/main/LICENSE.md

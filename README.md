@@ -11,8 +11,8 @@ Lexicon BO is a dedicated company to transparency and integrity in the corporate
 
 ## Tech Stack
 * NextJS
+    * App Router
 * Tailwind CSS
-* Next JS App Router
 
 ## Folder Structures
 For the routing folder, we put all of our pages in ```app``` folder with the file name based on [App Router Documentation](https://nextjs.org/docs/getting-started/project-structure#app-routing-conventions). For another purpose besides UI pages, we used the following structure:

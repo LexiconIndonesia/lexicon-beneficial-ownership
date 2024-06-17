@@ -67,4 +67,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-shield]: https://img.shields.io/github/issues/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
 [issues-url]: https://github.com/LexiconIndonesia/lexicon-bo/issues
 [license-shield]: https://img.shields.io/github/license/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[license-url]: https://github.com/LexiconIndonesia/lexicon-bo/blob/master/LICENSE.md
+[license-url]: https://github.com/LexiconIndonesia/lexicon-bo/blob/main/LICENSE.md

@@ -2,20 +2,33 @@
 
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { capitalizeFirstLetter } from '@/utils/strings'
 import { filters } from '@/utils/constants'
+import PlagiarismIcon from './icons/PlagiarismIcon'
+import ExpandMoreIcon from './icons/ExpandMoreIcon'
 
-export default function FilterType (): ReactElement {
-  const [selectedTypes, setSelectedTypes] = useState<Set<string> | null>()
-  const router = useRouter()
+export default function FilterType (
+  {
+    onSelectedTypes
+  }: {
+    onSelectedTypes: (types: string[]) => void
+  }
+): ReactElement {
   const params = useSearchParams()
-  const path = usePathname()
+
+  const [selectedTypes, setSelectedTypes] = useState<Set<string> | null>(new Set())
 
   useEffect(() => {
-    // TODO: Add validation for params
     setSelectedTypes(new Set(params.getAll('types') ?? []))
-  }, [])
+  }, [params])
+
+  useEffect(() => {
+    if ((selectedTypes?.size ?? 0) > 0) {
+      console.log('selected', selectedTypes)
+      onSelectedTypes(Array.from(selectedTypes ?? []))
+    }
+  }, [selectedTypes])
 
   const selectedTypesFormatted = useMemo(
     () => {
@@ -28,23 +41,16 @@ export default function FilterType (): ReactElement {
     [selectedTypes]
   )
 
-  useEffect(() => {
-    if (selectedTypes != null) {
-      const newParams = new URLSearchParams(params)
-      newParams.delete('types')
-      Array.from((selectedTypes ?? []).values()).forEach((subject) => {
-        newParams.append('types', subject)
-      })
-      router.replace(`${path}?${newParams.toString()}`, { scroll: false })
-    }
-  }, [selectedTypes])
-
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>
         <DropdownTrigger>
-          <button className={`px-4 py-2 ${(selectedTypes?.size ?? 0) > 0 ? 'bg-blue-100' : 'bg-slate-200'} rounded-lg font-semibold text-sm`}>
-            {(selectedTypes?.size ?? 0) > 0 ? selectedTypesFormatted : 'Type'}
-          </button>
+          <div className='flex flex-row gap-2 flex-1 items-center cursor-pointer hover:opacity-hover transition-all duration-200'>
+            <PlagiarismIcon />
+            <span className='text-xs text-textGray40 flex-1 pr-6'>
+              {(selectedTypes?.size ?? 0) > 0 ? selectedTypesFormatted : 'Select Record Type'}
+            </span>
+            <ExpandMoreIcon />
+          </div>
         </DropdownTrigger>
         <DropdownMenu
           aria-label="Multiple selection example"
@@ -54,7 +60,7 @@ export default function FilterType (): ReactElement {
           selectedKeys={selectedTypes ?? []}
           onSelectionChange={setSelectedTypes as any}
         >
-          <DropdownSection title="Type">
+          <DropdownSection>
             {filters.types.map((type) => (
               <DropdownItem key={`${type.toLowerCase()}`} value={`${type.toLowerCase()}`}>{type}</DropdownItem>
             ))}

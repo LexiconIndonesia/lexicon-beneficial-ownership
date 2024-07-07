@@ -17,11 +17,17 @@ const config: Config = {
       },
       colors: {
         colorPrimary: '#0095A4',
+        colorPrimaryBackground: '#00C7DB',
         lightGray: '#F9F9F9',
         textGray: '#4F4F4F',
         textGray40: '#989898',
         gray20: '#EAECF0',
-        textGrayBold: '#6D6D6D'
+        textGrayBold: '#6D6D6D',
+        colorBorder: '#EAECF0',
+        colorPrimaryText: '#141414',
+        colorSecondaryText: '#444444',
+        colorTertiaryText: '#6D6D6D',
+        colorSecondaryBackground: '#E8FDFF'
       }
     }
   },

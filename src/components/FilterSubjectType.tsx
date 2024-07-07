@@ -1,21 +1,33 @@
 'use client'
 
 import { filters } from '@/utils/constants'
-import { capitalizeFirstLetter } from '@/utils/strings'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
+import SearchPersonIcon from './icons/SearchPersonIcon'
+import ExpandMoreIcon from './icons/ExpandMoreIcon'
+import { capitalizeFirstLetter } from '@/utils/strings'
+import { useSearchParams } from 'next/navigation'
 
-export default function FilterSubjectType (): ReactElement {
-  const [selectedSubjects, setSelectedSubjects] = useState<Set<string> | null>()
+export default function FilterSubjectType (
+  {
+    onSelectedSubjects
+  }: {
+    onSelectedSubjects: (subjects: string[]) => void
+  }
+): ReactElement {
   const params = useSearchParams()
-  const router = useRouter()
-  const path = usePathname()
+  const [selectedSubjects, setSelectedSubjects] = useState<Set<string> | null>(new Set())
 
   useEffect(() => {
-    // TODO: Add validation for params
     setSelectedSubjects(new Set(params.getAll('subjects') ?? []))
-  }, [])
+  }, [params])
+
+  useEffect(() => {
+    if ((selectedSubjects?.size ?? 0) > 0) {
+      console.log('selected', selectedSubjects)
+      onSelectedSubjects(Array.from(selectedSubjects ?? []))
+    }
+  }, [selectedSubjects])
 
   const selectedSubjectsFormatted = useMemo(
     () => {
@@ -28,39 +40,31 @@ export default function FilterSubjectType (): ReactElement {
     [selectedSubjects]
   )
 
-  useEffect(() => {
-    if (selectedSubjects != null) {
-      console.log(selectedSubjects)
-      const newParams = new URLSearchParams(params)
-      newParams.delete('subjects')
-      Array.from(selectedSubjects.values()).forEach((subject) => {
-        newParams.append('subjects', subject)
-      })
-      router.replace(`${path}?${newParams.toString()}`, { scroll: true })
-    }
-  }, [selectedSubjects])
-
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>
-        <DropdownTrigger>
-          <button
-            className={`px-4 py-2 ${(selectedSubjects?.size ?? 0) > 0 ? 'bg-blue-100' : 'bg-slate-200'} rounded-lg font-semibold text-sm`}
-          >{(selectedSubjects?.size ?? 0) > 0 ? selectedSubjectsFormatted : 'Subject Type'}</button>
-        </DropdownTrigger>
-        <DropdownMenu
-          aria-label="Multiple selection example"
-          variant="shadow"
-          closeOnSelect={false}
-          selectionMode="multiple"
-          selectedKeys={selectedSubjects ?? []}
-          onSelectionChange={setSelectedSubjects as any}
-        >
-          <DropdownSection title="Subject Type">
-            {filters.subjects.map((subject) => (
-              <DropdownItem key={`${subject.toLowerCase()}`} value={`${subject.toLowerCase()}`}>{subject}</DropdownItem>
-            ))}
-          </DropdownSection>
-        </DropdownMenu>
-      </Dropdown>
+      <DropdownTrigger>
+        <div className='flex flex-row gap-2 flex-1 items-center cursor-pointer hover:opacity-hover transition-all duration-200'>
+          <SearchPersonIcon />
+          <span className='text-xs text-textGray40 flex-1 pr-6'>
+            {(selectedSubjects?.size ?? 0) > 0 ? selectedSubjectsFormatted : 'Select Subject Type'}
+          </span>
+          <ExpandMoreIcon />
+        </div>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Multiple selection example"
+        variant="shadow"
+        closeOnSelect={false}
+        selectionMode="multiple"
+        selectedKeys={selectedSubjects ?? []}
+        onSelectionChange={setSelectedSubjects as any}
+      >
+        <DropdownSection>
+          {filters.subjects.map((subject) => (
+            <DropdownItem key={`${subject.toLowerCase()}`} value={`${subject.toLowerCase()}`}>{subject}</DropdownItem>
+          ))}
+        </DropdownSection>
+      </DropdownMenu>
+    </Dropdown>
   )
 }

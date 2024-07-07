@@ -5,93 +5,104 @@ import { type GetCasesParams, type GetCasesResponse } from '@/types/cases'
 import { type BaseResponse } from '@/types/responses'
 import { type Return } from '@/types/returns'
 import { capitalizeFirstLetter } from '@/utils/strings'
-import { CircularProgress, Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
-import React, { useMemo, type ReactElement } from 'react'
+import React, { useEffect, useState, type ReactElement } from 'react'
 import useSWR, { type Fetcher } from 'swr'
+import PageBreakIcon from './icons/PageBreakIcon'
+import LocationOnIcon from './icons/LocationOnIcon'
+import DateIcon from './icons/DateIcon'
+import { Button, CircularProgress } from '@nextui-org/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const fetcher: Fetcher<Return<BaseResponse<GetCasesResponse[]>>, GetCasesParams> = async (params) => await getCases(params)
 
-export default function PersonList ({
-  query, nations, subjects, types, year, page, setPage
-}: {
-  query: string
-  nations: string[]
-  subjects: string[]
-  types: string[]
-  year: string
-  page: number
-  setPage: (page: number) => void
-}): ReactElement {
+export default function PersonList ({ setTotal }: { setTotal: (page: number) => void }): ReactElement {
   const router = useRouter()
+  const params = useSearchParams()
+
+  const [persons, setPersons] = useState<GetCasesResponse[]>([])
+  const [page, setPage] = useState<number>()
+  const [query, setQuery] = useState('')
+  const [subjects, setSubjects] = useState<string[]>([])
+  const [nations, setNations] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [year, setYear] = useState<string>('')
 
   const { data, isLoading } = useSWR<Return<BaseResponse<GetCasesResponse[]>>>(
     { page, query, nations, subjects, types, year },
     fetcher,
     {
-      revalidateOnFocus: false,
       revalidateOnMount: false,
-      revalidateIfStale: false
+      revalidateIfStale: false,
+      revalidateOnFocus: false
     }
   )
 
-  const pages = useMemo(() => {
-    return data?.success?.meta?.total != null ? Math.ceil(data?.success?.meta?.total / (data?.success?.meta?.per_page ?? 0)) : 0
-  }, [data?.success?.meta?.total, data?.success?.meta?.per_page])
+  useEffect(() => {
+    setQuery(params.get('query') ?? '')
+    setSubjects(params.getAll('subjects') ?? [])
+    setTypes(params.getAll('types') ?? [])
+    setNations(params.getAll('nations') ?? [])
+    setYear(`${params.get('from') ?? ''}-${params.get('to') ?? ''}`)
+    setPage(1)
+  }, [params])
+
+  useEffect(() => {
+    setTotal(data?.success?.meta?.total ?? 0)
+    if (page === 1) {
+      setPersons(data?.success?.data ?? [])
+    } else {
+      setPersons([...persons, ...(data?.success?.data ?? [])])
+    }
+  }, [data])
 
   return (
-    <section className="mt-4">
-      <Table
-        shadow="sm"
-        aria-label="Test"
-        bottomContent={
-          pages > 0 && (
-            <div className="flex w-full justify-center">
-            <Pagination
-              isCompact
-              showControls
-              showShadow
-              color="secondary"
-              page={page}
-              total={data?.success?.meta?.last_page ?? 0}
-              onChange={(page) => { setPage(page) }}
-            />
-          </div>
+    <section className='w-full'>
+      {!isLoading && data?.error != null && (
+        <h3 className='text-center'>Data tidak ditemukan</h3>
+      )}
+      <div className='grid grid-cols-2 gap-5'>
+        {persons.map((value) => {
+          return (
+            <div key={value.id} onClick={() => { router.push('/data/' + value.id) }} className='border border-colorBorder rounded-xl p-5 cursor-pointer hover:opacity-hover transition-all duration-200'>
+              <h6 className='text-sm font-normal text-colorSecondaryText'>
+                {capitalizeFirstLetter(value.subject_type ?? '')}
+              </h6>
+              <h3 className='font-bold text-xl text-colorPrimaryText'>
+                {value.subject}
+              </h3>
+              <div className='flex flex-row items-center mt-4 gap-6'>
+                <div className='flex flex-row items-center gap-1'>
+                  <PageBreakIcon />
+                  <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(value.type ?? '')}</h6>
+                </div>
+                <div className='flex flex-row items-center gap-1'>
+                  <LocationOnIcon />
+                  <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(value.nation ?? '')}</h6>
+                </div>
+                <div className='flex flex-row items-center gap-1'>
+                  <DateIcon />
+                  <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(value.year ?? '')}</h6>
+                </div>
+              </div>
+            </div>
           )
-        }
-      >
-        <TableHeader>
-          <TableColumn>Name</TableColumn>
-          <TableColumn>Subject Type</TableColumn>
-          <TableColumn>Person in Charge</TableColumn>
-          <TableColumn>Type</TableColumn>
-          <TableColumn>Year</TableColumn>
-          <TableColumn>Nationality</TableColumn>
-          <TableColumn>Beneficiary Ownership</TableColumn>
-        </TableHeader>
-        <TableBody
-          isLoading={isLoading}
-          loadingContent={<CircularProgress />}
-          emptyContent={data?.error !== '' ? data?.error : 'Data is not found'}
-          items={data?.success?.data ?? []}
-        >
-          {(item) => (
-            <TableRow
-              key={item.id}
-              className="hover:cursor-pointer hover:bg-slate-100 transition-all duration-200 active:bg-slate-200"
-              onClick={() => { router.push('/detail?id=' + item.id) }}
+        })}
+      </div>
+      {!isLoading && (data?.success?.meta?.current_page ?? 0) < (data?.success?.meta?.last_page ?? 0) && (
+        <div className='flex flex-col items-center py-16 gap-5'>
+          <p className='text-colorPrimaryText'>
+            Showing <span className='font-bold'>{(data?.success?.meta?.current_page ?? 0) * 20} </span>
+            out of <span className='font-bold'>{data?.success?.meta?.total}</span></p>
+            <Button
+              onClick={() => { setPage((page ?? 0) + 1) }}
+              radius='full'
+              className='bg-colorPrimaryBackground font-semibold text-colorPrimaryText'
             >
-              <TableCell>{item.subject ?? ''}</TableCell>
-              <TableCell>{capitalizeFirstLetter(item.subject_type ?? '')}</TableCell>
-              <TableCell>{item.person_in_charge ?? ''}</TableCell>
-              <TableCell>{capitalizeFirstLetter(item.type ?? '')}</TableCell>
-              <TableCell>{item.year ?? ''}</TableCell>
-              <TableCell>{item.nation ?? ''}</TableCell>
-              <TableCell>{item.beneficary_ownership ?? '-'}</TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+              Load more entities
+            </Button>
+        </div>
+      )}
+      {isLoading && (<CircularProgress className={`mx-auto mt-${page === 1 ? '0' : '4'}`} />)}
     </section>
   )
 }

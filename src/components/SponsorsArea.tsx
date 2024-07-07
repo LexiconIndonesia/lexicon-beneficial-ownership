@@ -6,24 +6,24 @@ const sponsors = [
     name: 'Accountability Lab',
     imageSrc: '/images/sponsors/AL.png',
     imageSize: {
-      width: 380,
-      height: 56
+      width: 246,
+      height: 5636
     }
   },
   {
     name: 'CIPE',
     imageSrc: '/images/sponsors/CIPE.png',
     imageSize: {
-      width: 225,
-      height: 141
+      width: 157,
+      height: 100
     }
   },
   {
     name: 'Development Gateway',
     imageSrc: '/images/sponsors/DG_IREX.png',
     imageSize: {
-      width: 384,
-      height: 117
+      width: 328,
+      height: 100
     }
   }
 ]
@@ -31,7 +31,7 @@ const sponsors = [
 export default function SponsorsArea (): React.ReactElement {
   return (
     <div className='px-4 sm:px-32 py-16 flex flex-col items-center gap-6 text-2xl font-bold'>
-      <h3>Supported by</h3>
+      <h3 className='font-semibold'>Supported by</h3>
       <div className='flex flex-col sm:flex-row overflow-y-auto gap-10 sm:gap-6'>
         {sponsors.map((sponsor, index) => (
           <div key={index} className='flex flex-col items-center justify-center'>

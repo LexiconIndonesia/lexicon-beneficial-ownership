@@ -11,34 +11,40 @@ import PageBreakIcon from './icons/PageBreakIcon'
 import LocationOnIcon from './icons/LocationOnIcon'
 import DateIcon from './icons/DateIcon'
 import { Button, CircularProgress } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const fetcher: Fetcher<Return<BaseResponse<GetCasesResponse[]>>, GetCasesParams> = async (params) => await getCases(params)
 
-export default function PersonList ({
-  query, nations, subjects, types, year, page, setPage, setTotal
-}: {
-  query: string
-  nations: string[]
-  subjects: string[]
-  types: string[]
-  year: string
-  page: number
-  setPage: (page: number) => void
-  setTotal: (page: number) => void
-}): ReactElement {
-  const [persons, setPersons] = useState<GetCasesResponse[]>([])
+export default function PersonList ({ setTotal }: { setTotal: (page: number) => void }): ReactElement {
   const router = useRouter()
+  const params = useSearchParams()
+
+  const [persons, setPersons] = useState<GetCasesResponse[]>([])
+  const [page, setPage] = useState<number>()
+  const [query, setQuery] = useState('')
+  const [subjects, setSubjects] = useState<string[]>([])
+  const [nations, setNations] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [year, setYear] = useState<string>('')
 
   const { data, isLoading } = useSWR<Return<BaseResponse<GetCasesResponse[]>>>(
     { page, query, nations, subjects, types, year },
     fetcher,
     {
-      revalidateOnFocus: false,
       revalidateOnMount: false,
-      revalidateIfStale: false
+      revalidateIfStale: false,
+      revalidateOnFocus: false
     }
   )
+
+  useEffect(() => {
+    setQuery(params.get('query') ?? '')
+    setSubjects(params.getAll('subjects') ?? [])
+    setTypes(params.getAll('types') ?? [])
+    setNations(params.getAll('nations') ?? [])
+    setYear(`${params.get('from') ?? ''}-${params.get('to') ?? ''}`)
+    setPage(1)
+  }, [params])
 
   useEffect(() => {
     setTotal(data?.success?.meta?.total ?? 0)
@@ -51,6 +57,9 @@ export default function PersonList ({
 
   return (
     <section className='w-full'>
+      {!isLoading && data?.error != null && (
+        <h3 className='text-center'>Data tidak ditemukan</h3>
+      )}
       <div className='grid grid-cols-2 gap-5'>
         {persons.map((value) => {
           return (
@@ -85,7 +94,7 @@ export default function PersonList ({
             Showing <span className='font-bold'>{(data?.success?.meta?.current_page ?? 0) * 20} </span>
             out of <span className='font-bold'>{data?.success?.meta?.total}</span></p>
             <Button
-              onClick={() => { setPage(page + 1) }}
+              onClick={() => { setPage((page ?? 0) + 1) }}
               radius='full'
               className='bg-colorPrimaryBackground font-semibold text-colorPrimaryText'
             >

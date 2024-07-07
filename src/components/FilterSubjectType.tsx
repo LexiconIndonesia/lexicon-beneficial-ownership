@@ -2,21 +2,32 @@
 
 import { filters } from '@/utils/constants'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
 import SearchPersonIcon from './icons/SearchPersonIcon'
 import ExpandMoreIcon from './icons/ExpandMoreIcon'
 import { capitalizeFirstLetter } from '@/utils/strings'
+import { useSearchParams } from 'next/navigation'
 
-export default function FilterSubjectType (): ReactElement {
-  const [selectedSubjects, setSelectedSubjects] = useState<Set<string> | null>()
+export default function FilterSubjectType (
+  {
+    onSelectedSubjects
+  }: {
+    onSelectedSubjects: (subjects: string[]) => void
+  }
+): ReactElement {
   const params = useSearchParams()
-  const router = useRouter()
-  const path = usePathname()
+  const [selectedSubjects, setSelectedSubjects] = useState<Set<string> | null>(new Set())
 
   useEffect(() => {
     setSelectedSubjects(new Set(params.getAll('subjects') ?? []))
-  }, [])
+  }, [params])
+
+  useEffect(() => {
+    if ((selectedSubjects?.size ?? 0) > 0) {
+      console.log('selected', selectedSubjects)
+      onSelectedSubjects(Array.from(selectedSubjects ?? []))
+    }
+  }, [selectedSubjects])
 
   const selectedSubjectsFormatted = useMemo(
     () => {
@@ -28,18 +39,6 @@ export default function FilterSubjectType (): ReactElement {
     },
     [selectedSubjects]
   )
-
-  useEffect(() => {
-    if (selectedSubjects != null) {
-      console.log(selectedSubjects)
-      const newParams = new URLSearchParams(params)
-      newParams.delete('subjects')
-      Array.from(selectedSubjects.values()).forEach((subject) => {
-        newParams.append('subjects', subject)
-      })
-      router.replace(`${path}?${newParams.toString()}`, { scroll: true })
-    }
-  }, [selectedSubjects])
 
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>

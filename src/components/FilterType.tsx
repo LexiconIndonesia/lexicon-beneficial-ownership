@@ -2,22 +2,33 @@
 
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { capitalizeFirstLetter } from '@/utils/strings'
 import { filters } from '@/utils/constants'
 import PlagiarismIcon from './icons/PlagiarismIcon'
 import ExpandMoreIcon from './icons/ExpandMoreIcon'
 
-export default function FilterType (): ReactElement {
-  const [selectedTypes, setSelectedTypes] = useState<Set<string> | null>()
-  const router = useRouter()
+export default function FilterType (
+  {
+    onSelectedTypes
+  }: {
+    onSelectedTypes: (types: string[]) => void
+  }
+): ReactElement {
   const params = useSearchParams()
-  const path = usePathname()
+
+  const [selectedTypes, setSelectedTypes] = useState<Set<string> | null>(new Set())
 
   useEffect(() => {
-    // TODO: Add validation for params
     setSelectedTypes(new Set(params.getAll('types') ?? []))
-  }, [])
+  }, [params])
+
+  useEffect(() => {
+    if ((selectedTypes?.size ?? 0) > 0) {
+      console.log('selected', selectedTypes)
+      onSelectedTypes(Array.from(selectedTypes ?? []))
+    }
+  }, [selectedTypes])
 
   const selectedTypesFormatted = useMemo(
     () => {
@@ -29,17 +40,6 @@ export default function FilterType (): ReactElement {
     },
     [selectedTypes]
   )
-
-  useEffect(() => {
-    if (selectedTypes != null) {
-      const newParams = new URLSearchParams(params)
-      newParams.delete('types')
-      Array.from((selectedTypes ?? []).values()).forEach((subject) => {
-        newParams.append('types', subject)
-      })
-      router.replace(`${path}?${newParams.toString()}`, { scroll: false })
-    }
-  }, [selectedTypes])
 
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>

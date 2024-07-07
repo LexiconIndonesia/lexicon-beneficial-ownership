@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import React, { createRef, useEffect, useState } from 'react'
 import CalendarIcon from './icons/CalendarIcon'
 import ExpandMoreIcon from './icons/ExpandMoreIcon'
@@ -10,10 +10,9 @@ enum CurrentForm {
   FROM, TO, BUTTON
 }
 
-export default function FilterYear (): React.ReactElement {
+export default function FilterYear ({ setSelectedYear }: { setSelectedYear: (from: string, to: string) => void }): React.ReactElement {
   const params = useSearchParams()
-  const path = usePathname()
-  const router = useRouter()
+
   const fromYearRef = createRef<HTMLInputElement>()
   const toYearRef = createRef<HTMLInputElement>()
   const buttonRef = createRef<HTMLButtonElement>()
@@ -24,23 +23,16 @@ export default function FilterYear (): React.ReactElement {
   const [currentForm, setCurrentForm] = useState(CurrentForm.FROM)
 
   useEffect(() => {
-    // TODO: Add validation for params
-    setFrom(params.get('from') ?? '')
-    setTo(params.get('to') ?? '')
-  }, [])
+    const from = params.get('from') ?? ''
+    const to = params.get('to') ?? ''
+    setFrom(from)
+    setTo(to)
+    setSelectedYear(from, to)
+  }, [params])
 
   const handleSubmitClicked = (): void => {
-    const newParams = new URLSearchParams(params)
-    newParams.delete('from')
-    newParams.delete('to')
-    if (from.length > 0) {
-      newParams.set('from', from)
-    }
-    if (to.length > 0) {
-      newParams.set('to', to)
-    }
     setIsOpen(false)
-    router.replace(`${path}?${newParams.toString()}`, { scroll: true })
+    setSelectedYear(from, to)
   }
 
   return (

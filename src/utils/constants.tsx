@@ -11,3 +11,12 @@ export const filters = {
   subjects: ['Individual', 'Company'],
   types: ['Verdict', 'Blacklist', 'Sanction']
 }
+
+export const apiParams = {
+  page: 'page',
+  query: 'query',
+  nation: 'nation',
+  subject_type: 'subject_type',
+  type: 'type',
+  year: 'year'
+}

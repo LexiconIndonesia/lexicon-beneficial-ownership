@@ -3,21 +3,31 @@
 import { filters } from '@/utils/constants'
 import { capitalizeFirstLetter } from '@/utils/strings'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
 import LocationIcon from './icons/LocationIcon'
 import ExpandMoreIcon from './icons/ExpandMoreIcon'
 
-export default function FilterNation (): ReactElement {
-  const [selectedNations, setSelectedNations] = useState<Set<string> | null>()
+export default function FilterNation (
+  {
+    onSelectedNations
+  }: {
+    onSelectedNations: (nation: string[]) => void
+  }
+): ReactElement {
   const params = useSearchParams()
-  const router = useRouter()
-  const path = usePathname()
+
+  const [selectedNations, setSelectedNations] = useState<Set<string> | null>(new Set())
 
   useEffect(() => {
-    // TODO: Add validation for params
     setSelectedNations(new Set(params.getAll('nations') ?? []))
-  }, [])
+  }, [params])
+
+  useEffect(() => {
+    if ((selectedNations?.size ?? 0) > 0) {
+      onSelectedNations(Array.from(selectedNations ?? []))
+    }
+  }, [selectedNations])
 
   const selectedNationsFormatted = useMemo(
     () => {
@@ -29,21 +39,6 @@ export default function FilterNation (): ReactElement {
     },
     [selectedNations]
   )
-
-  useEffect(() => {
-    if (selectedNations != null) {
-      const newParams = new URLSearchParams(params)
-      newParams.delete('nations')
-      Array.from((selectedNations ?? []).values()).forEach((subject) => {
-        newParams.append('nations', subject)
-      })
-      if ((selectedNations?.size ?? 0) > 0) {
-        router.replace(`${path}?${newParams.toString()}`, { scroll: true })
-      } else {
-        router.replace(`${path}`, { scroll: true })
-      }
-    }
-  }, [selectedNations])
 
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>

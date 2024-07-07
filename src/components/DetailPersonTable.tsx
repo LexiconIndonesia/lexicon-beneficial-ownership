@@ -2,8 +2,11 @@
 
 import { type GetCasesResponse } from '@/types/cases'
 import React from 'react'
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react'
+import { Button, Divider } from '@nextui-org/react'
 import { capitalizeFirstLetter } from '@/utils/strings'
+import PageBreakIcon from './icons/PageBreakIcon'
+import LocationOnIcon from './icons/LocationOnIcon'
+import DateIcon from './icons/DateIcon'
 
 export default function DetailPersonTable ({
   data
@@ -11,109 +14,40 @@ export default function DetailPersonTable ({
   data?: GetCasesResponse
 }): React.ReactElement {
   return (
-    <Table hideHeader shadow="sm" radius="sm" cellPadding={0} cellSpacing={0}>
-      <TableHeader>
-        <TableColumn>Subject Type</TableColumn>
-        <TableColumn>Space</TableColumn>
-        <TableColumn>Individual</TableColumn>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-semibold text-xl" colSpan={3}>{data?.subject ?? ''}</TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold" colSpan={3}><hr className="h-0 mt-4" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold">Subject Type</TableCell>
-          <TableCell width={30}> </TableCell>
-          <TableCell>{capitalizeFirstLetter(data?.subject_type ?? '')}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Person in Charge</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.person_in_charge ?? ''}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Year</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.year ?? ''}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Type</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{capitalizeFirstLetter(data?.type ?? '')}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Decision Number</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.decision_number ?? ''}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Nation</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.nation ?? ''}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Duration</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.punishment_duration ?? ''}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell width={200} className="font-semibold" colSpan={3}><hr className="h-0" /></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold">Beneficiary Ownership</TableCell>
-          <TableCell>&nbsp;</TableCell>
-          <TableCell>{data?.beneficary_ownership ?? '-'}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-semibold text-xl" colSpan={3}><h4 className="mt-6">Summary</h4></TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="text-sm text-justify" colSpan={3}>{data?.summary ?? ''}</TableCell>
-          <TableCell className="hidden"> </TableCell>
-          <TableCell className="hidden"> </TableCell>
-        </TableRow>
-      </TableBody>
-  </Table>
+    <>
+    <div className='flex flex-row justify-between'>
+      <div className='flex flex-col gap-2'>
+        <p className='text-base text-colorSecondaryText'>
+          {capitalizeFirstLetter(data?.subject_type ?? '')}
+        </p>
+        <h1 className='text-2xl font-medium'>
+          {data?.subject}
+        </h1>
+      </div>
+      <Button onClick={() => { window.open(data?.link, '_blank', 'rel=noopener noreferrer') }} radius='full' className='bg-colorSecondaryBackground text-colorPrimary font-semibold'>
+        Check Source
+      </Button>
+      </div>
+      <Divider className='border border-colorBorder mt-[18px]' />
+      <div className='flex flex-row items-center my-3 gap-6'>
+        <div className='flex flex-row items-center gap-1'>
+          <PageBreakIcon />
+          <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(data?.type ?? '')}</h6>
+        </div>
+        <div className='flex flex-row items-center gap-1'>
+          <LocationOnIcon />
+          <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(data?.nation ?? '')}</h6>
+        </div>
+        <div className='flex flex-row items-center gap-1'>
+          <DateIcon />
+          <h6 className='text-xs p-0 text-colorTertiaryText'>{capitalizeFirstLetter(data?.year ?? '')}</h6>
+        </div>
+      </div>
+      <Divider className='border border-colorBorder' />
+      <h3 className='text-colorPrimaryText text-xl font-bold mt-8'>Summary</h3>
+      <p className='mt-2 text-colorSecondaryText'>
+        {data?.summary ?? []}
+      </p>
+    </>
   )
 }

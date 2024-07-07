@@ -27,9 +27,9 @@ const mainFeatures: Array<{
 
 export default function MainFeatures (): React.ReactElement {
   return (
-    <div className='py-10 sm:py-24 mt-10 sm:mt-16 px-2 sm:px-32 flex flex-col justify-center'>
-      <h1 className='text-2xl sm:text-[36px] font-bold text-center leading-[43.57px]'><span className='text-colorPrimary'>LexiconBO</span>, Leading the Way in Procurement Integrity</h1>
-      <h3 className='text-textGrayBold text-sm sm:text-xl mt-2 font-normal text-center mx-0 sm:mx-20'>Revolutionizing procurement by offering unparalleled search capabilities, advanced data processing, and intuitive data visualization.</h3>
+    <div className='py-2 sm:py-28 mt-10 sm:mt-16 px-2 sm:px-32 flex flex-col justify-center'>
+      <h1 className='text-[40px] font-semibold sm:text-center leading-[43.57px]'>Leading the Way in Procurement Integrity</h1>
+      <h3 className='text-textGrayBold text-sm sm:text-xl mt-2 font-normal sm:text-center mx-0 sm:mx-20'>Revolutionizing procurement by offering unparalleled search capabilities, advanced data processing, and intuitive data visualization.</h3>
       <div className='grid grid-cols-1 sm:grid-cols-3 mt-6 sm:mt-11 gap-4'>
         {mainFeatures.map((feature, index) => (
           <div key={index} className='py-6 px-4 border-gray20 border-1 rounded-lg'>

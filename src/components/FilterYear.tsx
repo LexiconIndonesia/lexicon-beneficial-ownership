@@ -3,6 +3,8 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { createRef, useEffect, useState } from 'react'
+import CalendarIcon from './icons/CalendarIcon'
+import ExpandMoreIcon from './icons/ExpandMoreIcon'
 
 enum CurrentForm {
   FROM, TO, BUTTON
@@ -75,12 +77,13 @@ export default function FilterYear (): React.ReactElement {
       }}
     >
       <DropdownTrigger>
-        <button
-          onClick={() => { setIsOpen(true) }}
-          className={`px-4 py-2 ${from.length > 0 && to.length > 0 ? 'bg-blue-100' : 'bg-slate-200'} rounded-lg font-semibold text-sm`}
-        >
-          Year
-        </button>
+        <div onClick={() => { setIsOpen(true) }} className='flex flex-row gap-2 flex-1 items-center cursor-pointer hover:opacity-hover transition-all duration-200'>
+          <CalendarIcon />
+          <span className='text-xs text-textGray40 flex-1 pr-6'>
+            {from.length > 0 && to.length > 0 ? `${from}-${to}` : 'Select Year'}
+          </span>
+          <ExpandMoreIcon />
+        </div>
       </DropdownTrigger>
       <DropdownMenu
           aria-label="Multiple selection example"

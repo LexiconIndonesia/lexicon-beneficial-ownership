@@ -7,7 +7,6 @@ export async function api<T> (url: string, method: HttpMethods = 'GET'): Promise
     const salt = process.env.NEXT_PUBLIC_SALT ?? ''
     const accessTime = new Date().getTime() / 1000
     const signature = CryptoJS.SHA256(salt + accessTime + apiKey).toString()
-    // TODO: To be replaced by user name(?)
     const user = 'developer'
 
     const headers = {

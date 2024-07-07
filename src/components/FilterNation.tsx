@@ -5,6 +5,8 @@ import { capitalizeFirstLetter } from '@/utils/strings'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { type ReactElement, useEffect, useMemo, useState } from 'react'
+import LocationIcon from './icons/LocationIcon'
+import ExpandMoreIcon from './icons/ExpandMoreIcon'
 
 export default function FilterNation (): ReactElement {
   const [selectedNations, setSelectedNations] = useState<Set<string> | null>()
@@ -20,7 +22,7 @@ export default function FilterNation (): ReactElement {
   const selectedNationsFormatted = useMemo(
     () => {
       if ((selectedNations?.size ?? 0) > 1) {
-        return `Nation (${(selectedNations?.size ?? 0)})`
+        return `Nationality (${(selectedNations?.size ?? 0)})`
       } else {
         return capitalizeFirstLetter(Array.from(selectedNations ?? []).toString())
       }
@@ -45,25 +47,29 @@ export default function FilterNation (): ReactElement {
 
   return (
     <Dropdown showArrow shouldCloseOnInteractOutside={() => true}>
-        <DropdownTrigger>
-          <button
-            className={`px-4 py-2 ${(selectedNations?.size ?? 0) > 0 ? 'bg-blue-100' : 'bg-slate-200'} rounded-lg font-semibold text-sm`}
-          >{(selectedNations?.size ?? 0) > 0 ? selectedNationsFormatted : 'Nation'}</button>
-        </DropdownTrigger>
-        <DropdownMenu
-          aria-label="Multiple selection example"
-          variant="shadow"
-          closeOnSelect={false}
-          selectionMode="multiple"
-          selectedKeys={selectedNations ?? []}
-          onSelectionChange={setSelectedNations as any}
-        >
-          <DropdownSection title="Type">
-            {filters.nations.map((nation) => (
-              <DropdownItem key={`${nation.toLowerCase()}`} value={`${nation.toLowerCase()}`}>{nation}</DropdownItem>
-            ))}
-          </DropdownSection>
-        </DropdownMenu>
-      </Dropdown>
+      <DropdownTrigger>
+        <div className='flex flex-row gap-2 flex-1 items-center cursor-pointer hover:opacity-hover transition-all duration-200'>
+          <LocationIcon />
+          <span className='text-xs text-textGray40 flex-1 pr-6'>
+            {(selectedNations?.size ?? 0) > 0 ? selectedNationsFormatted : 'Select Nationality'}
+          </span>
+          <ExpandMoreIcon />
+        </div>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Multiple selection example"
+        variant="shadow"
+        closeOnSelect={false}
+        selectionMode="multiple"
+        selectedKeys={selectedNations ?? []}
+        onSelectionChange={setSelectedNations as any}
+      >
+        <DropdownSection>
+          {filters.nations.map((nation) => (
+            <DropdownItem key={`${nation.toLowerCase()}`} value={`${nation.toLowerCase()}`}>{nation}</DropdownItem>
+          ))}
+        </DropdownSection>
+      </DropdownMenu>
+    </Dropdown>
   )
 }

@@ -25,7 +25,6 @@ export default function FilterType (
 
   useEffect(() => {
     if ((selectedTypes?.size ?? 0) > 0) {
-      console.log('selected', selectedTypes)
       onSelectedTypes(Array.from(selectedTypes ?? []))
     }
   }, [selectedTypes])

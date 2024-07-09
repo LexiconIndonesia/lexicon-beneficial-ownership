@@ -24,7 +24,6 @@ export default function FilterSubjectType (
 
   useEffect(() => {
     if ((selectedSubjects?.size ?? 0) > 0) {
-      console.log('selected', selectedSubjects)
       onSelectedSubjects(Array.from(selectedSubjects ?? []))
     }
   }, [selectedSubjects])

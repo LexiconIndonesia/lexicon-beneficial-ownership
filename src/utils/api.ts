@@ -20,12 +20,10 @@ export async function api<T> (url: string, method: HttpMethods = 'GET'): Promise
     const response = await fetch(url, { method, headers })
     const responseJson = await response.json()
     if (!response.ok || response.status === 404 || responseJson.error != null) {
-      console.log('go hrer')
       throw new Error(response.statusText)
     }
     return responseJson as T
   } catch (e) {
-    console.log(e)
     throw handleError(e)
   }
 }

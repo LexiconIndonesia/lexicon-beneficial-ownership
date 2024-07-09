@@ -60,7 +60,7 @@ export default function PersonList ({ setTotal }: { setTotal: (page: number) => 
       {!isLoading && data?.error != null && (
         <h3 className='text-center'>Data tidak ditemukan</h3>
       )}
-      <div className='grid grid-cols-2 gap-5'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
         {persons.map((value) => {
           return (
             <div key={value.id} onClick={() => { router.push('/data/' + value.id) }} className='border border-colorBorder rounded-xl p-5 cursor-pointer hover:opacity-hover transition-all duration-200'>

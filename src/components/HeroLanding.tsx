@@ -34,8 +34,12 @@ export default function HeroLanding (): React.ReactElement {
     newParams.delete('to')
 
     newParams.set('query', query)
-    newParams.set('from', from)
-    newParams.set('to', to)
+    if (from.length > 0) {
+      newParams.set('from', from)
+    }
+    if (to.length > 0) {
+      newParams.set('to', to)
+    }
     Array.from((subjects ?? []).values()).forEach((subject) => {
       newParams.append('subjects', subject)
     })

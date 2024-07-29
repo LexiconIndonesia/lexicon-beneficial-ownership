@@ -7,7 +7,7 @@
 [![MIT License][license-shield]][license-url]
 
 # About The Project
-Lexicon BO is a dedicated company to transparency and integrity in the corporate world. Our mission is to uncover and display the true beneficial ownership of companies, highlighting those involved in corruption. By providing clear, accessible information, we empower citizens, regulators, and investors to make informed decisions. Join us in our quest for accountability and help us shine a light on the hidden faces behind corporate corruption. Discover the truth with Lexicon BO.
+Lexicon Beneficiary Ownership is a dedicated company to transparency and integrity in the corporate world. Our mission is to uncover and display the true beneficial ownership of companies, highlighting those involved in corruption. By providing clear, accessible information, we empower citizens, regulators, and investors to make informed decisions. Join us in our quest for accountability and help us shine a light on the hidden faces behind corporate corruption. Discover the truth with Lexicon Beneficiary Ownership.
 
 ## Tech Stack
 * NextJS
@@ -31,7 +31,7 @@ You can access the website directly at [this link](https://bo.lexicon.id/)
 - [x] Landing page implementation
 - [ ] Create documentation (readme, license, etc)
 - [ ] Visualization feature implementation
-See the [open issues](https://github.com/LexiconIndonesia/lexicon-bo/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/issues) for a full list of proposed features (and known issues).
 
 # How to Run
 1. Clone the project
@@ -58,13 +58,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Markdown Link and Images -->
-[contributors-shield]: https://img.shields.io/github/contributors/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[contributors-url]: https://github.com/LexiconIndonesia/lexicon-bo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[forks-url]: https://github.com/LexiconIndonesia/lexicon-bo/network/members
-[stars-shield]: https://img.shields.io/github/stars/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[stars-url]: https://github.com/LexiconIndonesia/lexicon-bo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[issues-url]: https://github.com/LexiconIndonesia/lexicon-bo/issues
-[license-shield]: https://img.shields.io/github/license/LexiconIndonesia/lexicon-bo.svg?style=for-the-badge
-[license-url]: https://github.com/LexiconIndonesia/lexicon-bo/blob/main/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/LexiconIndonesia/lexicon-beneficiary-ownership.svg?style=for-the-badge
+[contributors-url]: https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/LexiconIndonesia/lexicon-beneficiary-ownership.svg?style=for-the-badge
+[forks-url]: https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/network/members
+[stars-shield]: https://img.shields.io/github/stars/LexiconIndonesia/lexicon-beneficiary-ownership.svg?style=for-the-badge
+[stars-url]: https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/stargazers
+[issues-shield]: https://img.shields.io/github/issues/LexiconIndonesia/lexicon-beneficiary-ownership.svg?style=for-the-badge
+[issues-url]: https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/issues
+[license-shield]: https://img.shields.io/github/license/LexiconIndonesia/lexicon-beneficiary-ownership.svg?style=for-the-badge
+[license-url]: https://github.com/LexiconIndonesia/lexicon-beneficiary-ownership/blob/main/LICENSE.txt

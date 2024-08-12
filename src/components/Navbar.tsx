@@ -41,7 +41,7 @@ export default function Navbar(): React.ReactElement {
             src="/images/img_logo.png"
             width={154}
             height={40}
-            alt="Lexicon Beneficiary Ownership Logo"
+            alt="Lexicon Beneficial Ownership Logo"
           />
         </a>
         <div className="hidden sm:flex flex-row items-center mt-1 gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

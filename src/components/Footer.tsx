@@ -10,7 +10,10 @@ export default function Footer(): React.ReactElement {
       <div className='w-full sm:w-3/5 flex flex-col'>
         <Image src={'/images/img_logo.png'} width={155} height={40} alt='Lexicon Logo' />
         <p className='text-textGray text-xs font-normal mt-5'>
-          Lexicon Beneficial Ownership is a tool designed to help procurement officials quickly find individuals or companies with a history of fraud and corruption by utilizing advanced keyword and filter systems, making the background check process efficient and reliable.
+          Lexicon Beneficial Ownership is a tool designed to help procurement
+          officials quickly find individuals or companies with a history of
+          fraud and corruption by utilizing advanced keyword and filter systems,
+          making the background check process efficient and reliable.
         </p>
         <ul className='flex flex-row gap-2 mt-4'>
           <li>

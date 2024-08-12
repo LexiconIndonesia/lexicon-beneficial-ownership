@@ -63,7 +63,7 @@ export default function HeroLanding(): React.ReactElement {
         <h1 className="text-[40px] font-semibold">
           Discover Procurement Integrity with{" "}
           <span className="text-colorPrimary">
-            Lexicon Beneficiary Ownership
+            Lexicon Beneficial Ownership
           </span>
         </h1>
         <h3 className="text-textGrayBold text-xl mt-2 font-normal">

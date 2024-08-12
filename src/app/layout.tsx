@@ -16,7 +16,12 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ["Beneficiary Ownership", "Corruption"],
+  keywords: [
+    "Beneficial Ownership",
+    "Lexicon",
+    "Lexicon Beneficial Ownership",
+    "Corruption",
+  ],
   authors: {
     name: siteConfig.owner,
     url: siteConfig.ownerUrl,

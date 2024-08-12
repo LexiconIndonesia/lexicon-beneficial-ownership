@@ -16,12 +16,12 @@ const mainFeatures: Array<{
   {
     icon: <DataExplorationIcon />,
     title: 'Advanced Data Processing',
-    description: 'Leveraging OCR and NLP, LexiconBO processes and classifies vast amounts of information efficiently.'
+    description: 'Leveraging OCR and NLP, Lexicon Beneficiary Ownership processes and classifies vast amounts of information efficiently.'
   },
   {
     icon: <ChartIcon />,
     title: 'Intuitive Visualization',
-    description: 'LexiconBO presents data in charts and other visualization methods, enabling users to quickly interpret and act on the information.'
+    description: 'Lexicon Beneficiary Ownership presents data in charts and other visualization methods, enabling users to quickly interpret and act on the information.'
   }
 ]
 

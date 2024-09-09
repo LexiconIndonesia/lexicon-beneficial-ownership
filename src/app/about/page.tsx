@@ -6,18 +6,18 @@ export default function AboutPage(): React.ReactElement {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div>
           <h1 className="text-3xl font-bold mb-4">
-            About Lexicon Beneficiary Ownership
+            About Lexicon Beneficial Ownership
           </h1>
           <p className="mb-4">
-            At <strong>Lexicon Beneficiary Ownership</strong>, we are committed
+            At <strong>Lexicon Beneficial Ownership</strong>, we are committed
             to revolutionizing the way businesses and organizations manage and
             understand ownership structures. Our mission is to bring
             transparency, efficiency, and compliance to the often-complex world
-            of beneficiary ownership, helping businesses navigate regulatory
+            of Beneficial ownership, helping businesses navigate regulatory
             requirements with ease.
           </p>
           <p className="mb-4">
-            Founded in 2023, Lexicon Beneficiary Ownership was established to
+            Founded in 2023, Lexicon Beneficial Ownership was established to
             tackle the growing need for clear, accessible information in
             corporate governance and compliance. We offer innovative solutions
             that simplify ownership tracking and ensure that our clients remain
@@ -33,11 +33,11 @@ export default function AboutPage(): React.ReactElement {
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="mb-4">
             To provide businesses with the tools and knowledge they need to
-            navigate beneficiary ownership transparently and efficiently.
+            navigate Beneficial ownership transparently and efficiently.
           </p>
           <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
           <p className="mb-4">
-            To be the leading platform for beneficiary ownership management,
+            To be the leading platform for Beneficial ownership management,
             setting the standard for transparency and compliance in corporate
             governance.
           </p>
@@ -60,6 +60,20 @@ export default function AboutPage(): React.ReactElement {
               do, and we strive to meet their unique needs.
             </li>
           </ul>
+          <h2 className="text-2xl font-bold mb-4 mt-4">
+            Find out more about us
+          </h2>
+          <p className="mb-4">
+            Checkout this link{" "}
+            <a
+              target="_blank"
+              className="text-blue-700 hover:opacity-80 transition-all duration-200"
+              href="https://accountabilitylab.org/anti-corruption-technologists-in-indonesia-use-tool-to-flag-fraudulent-entities/"
+            >
+              https://accountabilitylab.org/anti-corruption-technologists-in-indonesia-use-tool-to-flag-fraudulent-entities/
+            </a>{" "}
+            to see how we build Lexicon Beneficial Ownership
+          </p>
         </div>
       </div>
     </div>

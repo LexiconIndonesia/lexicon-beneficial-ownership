@@ -1,57 +1,57 @@
-"use client";
+'use client'
 
-import { Button, Divider } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import SearchIcon from "./icons/SearchIcon";
-import FilterSubjectType from "./FilterSubjectType";
-import FilterType from "./FilterType";
-import FilterNation from "./FilterNation";
-import FilterYear from "./FilterYear";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Button, Divider } from '@nextui-org/react'
+import React, { useEffect, useState } from 'react'
+import SearchIcon from './icons/SearchIcon'
+import FilterSubjectType from './FilterSubjectType'
+import FilterType from './FilterType'
+import FilterNation from './FilterNation'
+import FilterYear from './FilterYear'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function HeroLanding(): React.ReactElement {
-  const params = useSearchParams();
-  const router = useRouter();
+export default function HeroLanding (): React.ReactElement {
+  const params = useSearchParams()
+  const router = useRouter()
 
-  const [query, setQuery] = useState("");
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [nations, setNations] = useState<string[]>([]);
-  const [types, setTypes] = useState<string[]>([]);
-  const [from, setFrom] = useState<string>("");
-  const [to, setTo] = useState<string>("");
+  const [query, setQuery] = useState('')
+  const [subjects, setSubjects] = useState<string[]>([])
+  const [nations, setNations] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [from, setFrom] = useState<string>('')
+  const [to, setTo] = useState<string>('')
 
   useEffect(() => {
-    setQuery(params.get("query") ?? "");
-  }, []);
+    setQuery(params.get('query') ?? '')
+  }, [])
 
   const handleSearchClicked = (): void => {
-    const newParams = new URLSearchParams(params);
-    newParams.delete("subjects");
-    newParams.delete("types");
-    newParams.delete("nation");
-    newParams.delete("query");
-    newParams.delete("from");
-    newParams.delete("to");
+    const newParams = new URLSearchParams(params)
+    newParams.delete('subjects')
+    newParams.delete('types')
+    newParams.delete('nation')
+    newParams.delete('query')
+    newParams.delete('from')
+    newParams.delete('to')
 
-    newParams.set("query", query);
+    newParams.set('query', query)
     if (from.length > 0) {
-      newParams.set("from", from);
+      newParams.set('from', from)
     }
     if (to.length > 0) {
-      newParams.set("to", to);
+      newParams.set('to', to)
     }
     Array.from((subjects ?? []).values()).forEach((subject) => {
-      newParams.append("subjects", subject);
-    });
+      newParams.append('subjects', subject)
+    })
     Array.from((types ?? []).values()).forEach((subject) => {
-      newParams.append("types", subject);
-    });
+      newParams.append('types', subject)
+    })
     Array.from((nations ?? []).values()).forEach((subject) => {
-      newParams.append("nations", subject);
-    });
-    if (query.length === 0) newParams.delete("query");
-    router.replace(`/data?${newParams.toString()}`, { scroll: false });
-  };
+      newParams.append('nations', subject)
+    })
+    if (query.length === 0) newParams.delete('query')
+    router.replace(`/data?${newParams.toString()}`, { scroll: false })
+  }
   return (
     <div className="px-4 md:px-36 py-8 sm:py-[192px] flex flex-col justify-center items-center">
       <img
@@ -61,7 +61,7 @@ export default function HeroLanding(): React.ReactElement {
       />
       <div className="flex flex-col items-center bg-white z-10">
         <h1 className="text-[40px] font-semibold">
-          Discover Procurement Integrity with{" "}
+          Discover Procurement Integrity with{' '}
           <span className="text-colorPrimary">
             Lexicon Beneficial Ownership
           </span>
@@ -76,7 +76,7 @@ export default function HeroLanding(): React.ReactElement {
           <input
             className="outline-none w-full font-normal text-sm placeholder-textGray40"
             onInput={(input) => {
-              setQuery(input.currentTarget.value);
+              setQuery(input.currentTarget.value)
             }}
             value={query}
             placeholder="Enter individual or company name..."
@@ -85,23 +85,23 @@ export default function HeroLanding(): React.ReactElement {
           <div className="flex flex-col sm:flex-row gap-6">
             <FilterSubjectType
               onSelectedSubjects={(subjects: string[]) => {
-                setSubjects(subjects);
+                setSubjects(subjects)
               }}
             />
             <FilterType
               onSelectedTypes={(types: string[]) => {
-                setTypes(types);
+                setTypes(types)
               }}
             />
             <FilterNation
               onSelectedNations={(nations) => {
-                setNations(nations);
+                setNations(nations)
               }}
             />
             <FilterYear
               setSelectedYear={(from: string, to: string) => {
-                setFrom(from);
-                setTo(to);
+                setFrom(from)
+                setTo(to)
               }}
             />
             <Button
@@ -149,5 +149,5 @@ export default function HeroLanding(): React.ReactElement {
         }} className='w-full flex-1 py-3 px-1 sm:px-2 outline-none' type="search" placeholder='Enter company name or individual...' />
       </div> */}
     </div>
-  );
+  )
 }

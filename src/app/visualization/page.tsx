@@ -9,6 +9,7 @@ const Bar = dynamic(async () => await import('react-chartjs-2').then((mod) => mo
 })
 
 export default function VisualizationPage (): React.ReactElement {
+  // TODO: Modify the data based on what we get from the API
   const [data] = useState({
     labels: ['Indonesia', 'Singapore', 'Malaysia', 'Global'],
     datasets: [
@@ -32,6 +33,14 @@ export default function VisualizationPage (): React.ReactElement {
     ]
   })
 
+  const chartOptions = {
+    plugins:
+    {
+      legend:
+      { display: false }
+    }
+  }
+
   return (
     <main className='py-8 flex flex-col justify-center items-center'>
       <div className='py-16'>
@@ -43,7 +52,7 @@ export default function VisualizationPage (): React.ReactElement {
       </div>
       <div className='flex flex-col w-full px-32 py-16 gap-4'>
         <h3 className='text-2xl font-semibold'>Cases by Nations</h3>
-        <Bar className='mt-10' data={data} options={{ plugins: { legend: { display: false } } }} />
+        <Bar className='mt-10' data={data} options={chartOptions} />
       </div>
     </main>
   )

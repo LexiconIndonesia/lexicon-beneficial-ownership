@@ -4,7 +4,7 @@ import InstagramIcon from './icons/InstagramIcon'
 import LinkedInIcon from './icons/LinkedInIcon'
 import GithubIcon from './icons/GithubIcon'
 
-export default function Footer(): React.ReactElement {
+export default function Footer (): React.ReactElement {
   return (
     <footer className="sm:px-32 sm:py-12 px-6 py-10 bg-lightGray flex sm:flex-row flex-col gap-4">
       <div className='w-full sm:w-3/5 flex flex-col'>
@@ -42,5 +42,5 @@ export default function Footer(): React.ReactElement {
         </a>
       </div>
     </footer>
-  );
+  )
 }

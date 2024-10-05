@@ -1,66 +1,66 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import PersonList from "@/components/PersonList";
-import FilterSubjectType from "@/components/FilterSubjectType";
-import FilterType from "@/components/FilterType";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Button, Divider } from "@nextui-org/react";
-import SearchIcon from "@/components/icons/SearchIcon";
-import OptionalRendering from "@/components/ui/OptionalRendering";
-import FilterNation from "@/components/FilterNation";
-import FilterYear from "@/components/FilterYear";
+import React, { useState } from 'react'
+import PersonList from '@/components/PersonList'
+import FilterSubjectType from '@/components/FilterSubjectType'
+import FilterType from '@/components/FilterType'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { Button, Divider } from '@nextui-org/react'
+import SearchIcon from '@/components/icons/SearchIcon'
+import OptionalRendering from '@/components/ui/OptionalRendering'
+import FilterNation from '@/components/FilterNation'
+import FilterYear from '@/components/FilterYear'
 
-export default function DataPage(): React.ReactElement {
-  const params = useSearchParams();
-  const path = usePathname();
-  const router = useRouter();
+export default function DataPage (): React.ReactElement {
+  const params = useSearchParams()
+  const path = usePathname()
+  const router = useRouter()
 
-  const [query, setQuery] = useState("");
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [nations, setNations] = useState<string[]>([]);
-  const [types, setTypes] = useState<string[]>([]);
-  const [from, setFrom] = useState<string>("");
-  const [to, setTo] = useState<string>("");
-  const [total, setTotal] = useState(0);
+  const [query, setQuery] = useState('')
+  const [subjects, setSubjects] = useState<string[]>([])
+  const [nations, setNations] = useState<string[]>([])
+  const [types, setTypes] = useState<string[]>([])
+  const [from, setFrom] = useState<string>('')
+  const [to, setTo] = useState<string>('')
+  const [total, setTotal] = useState(0)
 
   const handleSearchClicked = (): void => {
-    const newParams = new URLSearchParams(params);
+    const newParams = new URLSearchParams(params)
 
-    newParams.delete("query");
-    newParams.delete("subjects");
-    newParams.delete("types");
-    newParams.delete("nation");
-    newParams.delete("query");
-    newParams.delete("from");
-    newParams.delete("to");
+    newParams.delete('query')
+    newParams.delete('subjects')
+    newParams.delete('types')
+    newParams.delete('nation')
+    newParams.delete('query')
+    newParams.delete('from')
+    newParams.delete('to')
 
     if (query.length > 0) {
-      newParams.set("query", query);
+      newParams.set('query', query)
     }
 
     if (from.length > 0) {
-      newParams.set("from", from);
+      newParams.set('from', from)
     }
 
     if (to.length > 0) {
-      newParams.set("to", to);
+      newParams.set('to', to)
     }
 
     Array.from((subjects ?? []).values()).forEach((subject) => {
-      newParams.append("subjects", subject);
-    });
+      newParams.append('subjects', subject)
+    })
 
     Array.from((types ?? []).values()).forEach((subject) => {
-      newParams.append("types", subject);
-    });
+      newParams.append('types', subject)
+    })
 
     Array.from((nations ?? []).values()).forEach((subject) => {
-      newParams.append("nations", subject);
-    });
+      newParams.append('nations', subject)
+    })
 
-    router.replace(`${path}?${newParams.toString()}`, { scroll: false });
-  };
+    router.replace(`${path}?${newParams.toString()}`, { scroll: false })
+  }
 
   return (
     <main className="flex flex-col">
@@ -75,7 +75,7 @@ export default function DataPage(): React.ReactElement {
             <input
               className="outline-none w-full font-normal text-sm placeholder-textGray40"
               onInput={(input) => {
-                setQuery(input.currentTarget.value);
+                setQuery(input.currentTarget.value)
               }}
               value={query}
               placeholder="Enter individual or company name..."
@@ -84,23 +84,23 @@ export default function DataPage(): React.ReactElement {
             <div className="flex flex-col sm:flex-row gap-6">
               <FilterSubjectType
                 onSelectedSubjects={(subjects: string[]) => {
-                  setSubjects(subjects);
+                  setSubjects(subjects)
                 }}
               />
               <FilterType
                 onSelectedTypes={(types: string[]) => {
-                  setTypes(types);
+                  setTypes(types)
                 }}
               />
               <FilterNation
                 onSelectedNations={(nations) => {
-                  setNations(nations);
+                  setNations(nations)
                 }}
               />
               <FilterYear
                 setSelectedYear={(from: string, to: string) => {
-                  setFrom(from);
-                  setTo(to);
+                  setFrom(from)
+                  setTo(to)
                 }}
               />
               <Button
@@ -131,5 +131,5 @@ export default function DataPage(): React.ReactElement {
         <PersonList setTotal={setTotal} />
       </div>
     </main>
-  );
+  )
 }

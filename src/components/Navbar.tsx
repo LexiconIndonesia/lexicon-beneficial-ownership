@@ -1,37 +1,37 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
-import OptionalRendering from "./ui/OptionalRendering";
-import SearchIcon from "./icons/SearchIcon";
+import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+import OptionalRendering from './ui/OptionalRendering'
+import SearchIcon from './icons/SearchIcon'
 
 const navigations: Array<{
-  title: string;
-  link: string;
+  title: string
+  link: string
 }> = [
   {
-    title: "Data",
-    link: "/data",
+    title: 'Data',
+    link: '/data'
   },
   {
-    title: "Visualization",
-    link: "/visualization",
+    title: 'Visualization',
+    link: '/visualization'
   },
   {
-    title: "FAQ",
-    link: "/faq",
+    title: 'FAQ',
+    link: '/faq'
   },
   {
-    title: "About",
-    link: "/about",
-  },
-];
+    title: 'About',
+    link: '/about'
+  }
+]
 
-export default function Navbar(): React.ReactElement {
-  const [showMenu, setShowMenu] = useState(false);
-  const path = usePathname();
-  const router = useRouter();
+export default function Navbar (): React.ReactElement {
+  const [showMenu, setShowMenu] = useState(false)
+  const path = usePathname()
+  const router = useRouter()
 
   return (
     <header>
@@ -50,7 +50,7 @@ export default function Navbar(): React.ReactElement {
               <a
                 href={navigation.link}
                 className={
-                  "text-sm font-medium hover:cursor-pointer hover:opacity-40 transition-all duration-200"
+                  'text-sm font-medium hover:cursor-pointer hover:opacity-40 transition-all duration-200'
                 }
               >
                 {navigation.title}
@@ -58,8 +58,8 @@ export default function Navbar(): React.ReactElement {
               <div
                 className={`w-full h-1 rounded-md mt-0.5 ${
                   path === navigation.link
-                    ? "bg-colorPrimary"
-                    : "bg-transparent"
+                    ? 'bg-colorPrimary'
+                    : 'bg-transparent'
                 }`}
               />
             </div>
@@ -73,8 +73,8 @@ export default function Navbar(): React.ReactElement {
               type="search"
               placeholder="Search people or companies..."
               onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  router.replace("/data?query=" + event.currentTarget.value);
+                if (event.key === 'Enter') {
+                  router.replace('/data?query=' + event.currentTarget.value)
                 }
               }}
             />
@@ -83,7 +83,7 @@ export default function Navbar(): React.ReactElement {
         {/* Mobile Navigation */}
         <button
           onClick={() => {
-            setShowMenu(!showMenu);
+            setShowMenu(!showMenu)
           }}
           className="absolute sm:hidden bg-slate-100 hover:bg-slate-200 transition-all duration-200 rounded-sm right-4"
         >
@@ -104,8 +104,8 @@ export default function Navbar(): React.ReactElement {
               type="search"
               placeholder="Search people or companies..."
               onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  router.replace("/data?query=" + event.currentTarget.value);
+                if (event.key === 'Enter') {
+                  router.replace('/data?query=' + event.currentTarget.value)
                 }
               }}
             />
@@ -122,7 +122,7 @@ export default function Navbar(): React.ReactElement {
           ))}
         </nav>
       </OptionalRendering>
-      <div className={"w-full h-[1px] bg-gray20 rounded-md hidden sm:block"} />
+      <div className={'w-full h-[1px] bg-gray20 rounded-md hidden sm:block'} />
     </header>
-  );
+  )
 }

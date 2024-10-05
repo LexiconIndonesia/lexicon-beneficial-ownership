@@ -1,7 +1,7 @@
-import { Button } from "@nextui-org/react";
-import React from "react";
+import { Button } from '@nextui-org/react'
+import React from 'react'
 
-export default function LandingCTA(): React.ReactElement {
+export default function LandingCTA (): React.ReactElement {
   return (
     <div className="flex flex-col py-4 px-4 sm:py-[100px] mb-4 relative">
       <img
@@ -25,5 +25,5 @@ export default function LandingCTA(): React.ReactElement {
         Find Now
       </Button>
     </div>
-  );
+  )
 }
